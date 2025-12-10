@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="d-flex justify-content-center">
+    <div class="card shadow-sm p-4" style="max-width: 500px; width: 100%;">
+
+        <h3 class="fw-bold text-center mb-4">
+            {{ 'Keresés' if lang=='hu' else 'Search' }}
+        </h3>
+
+        <!-- SEARCH FORM -->
+        <form method="GET" action="{{ url_for('main.search_results') }}">
+
+            <!-- TEXT SEARCH -->
+            <div class="mb-3">
+                <label class="form-label">
+                    {{ 'Film címe' if lang=='hu' else 'Movie title' }}
+                </label>
+                <input
+                    type="text"
+                    class="form-control"
+                    name="query"
+                    placeholder="{{ 'Írd be a film címét...' if lang=='hu' else 'Enter movie title...' }}"
+                >
+            </div>
+
+            <!-- GENRE DROPDOWN -->
+            <div class="mb-3">
+                <label class="form-label">
+                    {{ 'Műfaj (opcionális)' if lang=='hu' else 'Genre (optional)' }}
+                </label>
+                <select class="form-select" name="genre">
+                    <option value="0">
+                        {{ 'Bármely műfaj' if lang=='hu' else 'Any genre' }}
+                    </option>
+
+                    {% for g in genres %}
+                        <option value="{{ g.id }}">{{ g.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- SEARCH BUTTON -->
+            <button class="btn btn-dark w-100 mt-3">
+                {{ 'Keresés' if lang=='hu' else 'Search' }}
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
